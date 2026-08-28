@@ -1,0 +1,14 @@
+[project]
+name = "ctxprobe"
+version = "0.1.0"
+description = "AI context-poisoning / prompt-injection red-team scanner CLI"
+authors = [{name = "Santhosh595", email = "san595@example.com"}]
+requires-python = ">=3.8"
+license = {text = "MIT"}
+
+[project.scripts]
+ctxprobe = "ctxprobe.cli:main"
+
+[build-system]
+requires = ["setuptools>=42"]
+build-backend = "setuptools.build_meta"
