@@ -6,6 +6,7 @@ Negative case: benign corpus must produce ZERO high-severity findings
 """
 
 import json
+import os
 import subprocess
 import sys
 from pathlib import Path
@@ -124,10 +125,17 @@ def test_zero_width_detected_low_severity():
 # ---------------------------------------------------------------------------
 
 def _run_cli(args):
+    # The CLI is exercised as a real subprocess, so it must be importable
+    # there too. pytest's `pythonpath = ["src"]` setting only affects the
+    # test process, not the child, so pass the path explicitly.
+    env = dict(os.environ)
+    src = str(HERE.parent / "src")
+    env["PYTHONPATH"] = src + (os.pathsep + env["PYTHONPATH"] if env.get("PYTHONPATH") else "")
     proc = subprocess.run(
         [sys.executable, "-m", "ctxprobe", "scan", *args],
         capture_output=True,
         text=True,
+        env=env,
     )
     return proc
 
