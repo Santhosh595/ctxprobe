@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ctxprobe"
+version = "0.1.0"
+description = "Static scanner for context-poisoning / prompt-injection patterns in markdown, HTML and text."
+readme = "README.md"
+requires-python = ">=3.8"
+license = { text = "MIT" }
+keywords = ["security", "prompt-injection", "context-poisoning", "llm", "scanner"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Programming Language :: Python :: 3",
+    "Topic :: Security",
+]
+
+# No runtime dependencies: standard library only.
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=7.0"]
+
+[project.scripts]
+ctxprobe = "ctxprobe.cli:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]

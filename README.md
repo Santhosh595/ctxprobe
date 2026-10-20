@@ -1,5 +1,9 @@
 # ctxprobe
 
+[![CI](https://github.com/Santhosh595/ctxprobe/actions/workflows/ci.yml/badge.svg)](https://github.com/Santhosh595/ctxprobe/actions/workflows/ci.yml)
+[![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/downloads/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
+
 A read-only CLI that statically scans markdown, HTML, and plaintext (files,
 directories, or stdin) for **context-poisoning / prompt-injection patterns** —
 the input/context half of agent security that `hook-scanner` covers for the
@@ -37,17 +41,20 @@ python -m ctxprobe scan --path doc.md
 # Scan a single file
 python -m ctxprobe scan --path page.html
 
-# Scan a directory tree
-python -m ctxprobe scan --dir ./docs
+# Scan a directory tree (--path takes a file or a directory)
+python -m ctxprobe scan --path ./docs
 
 # Read from stdin (e.g. raw scraped content)
 curl -s https://example.com/page | python -m ctxprobe scan --stdin
 
 # Machine-readable output
-python -m ctxprobe scan --dir ./docs --json
+python -m ctxprobe scan --path ./docs --json
 
 # Quiet mode for CI (still exits non-zero on findings)
-python -m ctxprobe scan --dir ./docs --json --quiet
+python -m ctxprobe scan --path ./docs --json --quiet
+
+# Only report high-severity findings
+python -m ctxprobe scan --path ./docs --min-severity high
 ```
 
 ### Exit codes
